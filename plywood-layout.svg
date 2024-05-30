@@ -1,0 +1,65 @@
+<svg viewBox="0 0 540 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- размеры в мм -->
+
+  <style>
+    text {
+      font: italic 12px serif;
+      fill: black;
+      stroke: none;
+    }
+
+    .header {
+      font-size: 16px;
+    }
+  </style>
+
+  <defs>
+    <!-- arrow heads -->
+    <marker id='line' orient="auto-start-reverse" markerUnits="userSpaceOnUse" markerWidth='13' markerHeight='8'
+      refX='12' refY='4'>
+      <path d='m0,0 l12,4 l-12,4' fill='none' stroke='black' />
+    </marker>
+    <marker id='line-rev' orient="auto-start-reverse" markerUnits="userSpaceOnUse" markerWidth='13' markerHeight='8'
+      refX='0' refY='4'>
+      <path d='m0,4 h12 M12,0 l-12,4 l12,4' fill='none' stroke='black' />
+    </marker>
+  </defs>
+
+  <text class="header" x="255" y="14" text-anchor="middle">Резак для пенопласта</text>
+  <text class="header" x="255" y="40" text-anchor="middle">фанера 9мм</text>
+
+  <g transform="translate(30 70)" fill="none" stroke="black">
+    <path stroke-width="2" d="m0,0 h470 v180 h-470 v-30 L415,130 L411,51 L0,30 z" />
+
+    <!-- left -->
+    <path d="M-20,0 h20 M-20,30 h20" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,0 v30' />
+    <text x="-27" y="20">3</text>
+
+    <path d="M-20,150 h20" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,30 v120' />
+    <text x="-30" y="95">12</text>
+
+    <path d="M-20,180 h20" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,150 v30' />
+    <text x="-27" y="170">3</text>
+
+    <!-- bottom -->
+    <path d="M0,180 v30 M470,180 v30" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M0,205 h470' />
+    <text x="230" y="200">47</text>
+
+    <!-- right -->
+    <path transform="translate(405,130) rotate(-2.8)" d="M0,0 v-10 h10" />
+
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M415,130 h55' />
+    <text x="435" y="125">5,5</text>
+
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M415,130 v50' />
+    <text x="400" y="160">5</text>
+
+    <path d="M470,0 h25 M470,180 h25" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M485,0 v180' />
+    <text x="490" y="95">18</text>
+  </g>
+</svg>
