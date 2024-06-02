@@ -11,11 +11,10 @@ int pwm_level = 15; // 0..255
 
 int buttonState = HIGH;
 int lastButtonState = HIGH;
-unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long lastDebounceTime = 0; // the last time the output pin was toggled
 unsigned long debounceDelay = 100; // ms
 
 
-// the setup routine runs once when you press reset:
 void setup() {
   // PWM setup, see https://etechnophiles.com/change-frequency-pwm-pins-arduino-uno/
 
@@ -29,32 +28,30 @@ void setup() {
   pinMode(ledPin_G, OUTPUT);
   pinMode(pwm_pin, OUTPUT);
 
-  analogWrite(pwm_pin, pwm_level);
+  digitalWrite(ledPin_G, HIGH);
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
 
-
+  // read and debounce button
   int reading = digitalRead(buttonPin);
-
   if (reading != lastButtonState) {
     lastDebounceTime = millis();
   }
 
   if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (reading != buttonState) {
+    if (buttonState != reading) {
       buttonState = reading;
       if (buttonState == LOW) {
+        // button press
         pwm_on = !pwm_on;
       }
     }
   }
-
-  digitalWrite(ledPin_R, pwm_on);
-  // digitalWrite(ledPin_G, pwm_on);
-  analogWrite(pwm_pin, pwm_on ? pwm_level : 0);
-
   lastButtonState = reading;
 
+  digitalWrite(ledPin_R, pwm_on);
+  digitalWrite(ledPin_G, !pwm_on);
+  analogWrite(pwm_pin, pwm_on ? pwm_level : 0);
 }
