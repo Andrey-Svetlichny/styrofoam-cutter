@@ -25,8 +25,8 @@
     </marker>
   </defs>
 
-  <text class="header" x="255" y="14" text-anchor="middle">Резак для пенопласта</text>
-  <text class="header" x="255" y="40" text-anchor="middle">фанера 9мм</text>
+  <text class="header" x="255" y="14" text-anchor="middle">Резак для пенопласта (фанера 9мм)</text>
+  <text class="header" x="255" y="40" text-anchor="middle">максимальная ширина реза - 40 см</text>
 
   <g transform="translate(30 70)" fill="none" stroke="black">
     <path stroke-width="2" d="m0,0 h470 v180 h-470 v-30 L415,130 L411,51 L0,30 z" />
@@ -61,5 +61,8 @@
     <path d="M470,0 h25 M470,180 h25" />
     <path marker-start='url(#line)' marker-end='url(#line)' d='M485,0 v180' />
     <text x="490" y="95">18</text>
+
+    <!-- nichrome wire -->
+    <path stroke="red" transform="translate(15,165) rotate(-2.8)" d="M0,0 v-157" />
   </g>
 </svg>
