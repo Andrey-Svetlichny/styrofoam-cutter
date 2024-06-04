@@ -2,17 +2,18 @@
   PWM for нихромового резака
 */
 
-const int buttonPin = 9;
-const int ledPin_R = 11;
-const int ledPin_G = 12;
-const int pwm_pin = 3;     
-bool pwm_on = false;
-int pwm_level = 15; // 0..255
+#include "debounce.c"
 
-int buttonState = HIGH;
-int lastButtonState = HIGH;
-unsigned long lastDebounceTime = 0; // the last time the output pin was toggled
-unsigned long debounceDelay = 100; // ms
+const int pinButton = 9;
+const int pinLed_R = 11;
+const int pinLed_G = 12;
+const int pinPwm = 3;
+bool pwmOn = false;
+const int pwmLevelDefault = 15;  // 0..255
+int pwmLevel = pwmLevelDefault;
+unsigned long longPressTime;
+bool longPress;
+struct debounce_t debounce_t = { 0, 1 };
 
 
 void setup() {
@@ -22,36 +23,72 @@ void setup() {
   // TCCR2B = TCCR2B & B11111000 | B00000001; // 31372.55 Hz
   // TCCR2B = TCCR2B & B11111000 | B00000010; // 3921.16 Hz
   // TCCR2B = TCCR2B & B11111000 | B00000011; // 980.39 Hz
+  // TCCR2B = TCCR2B & B11111000 | B00000100; // 490.20 Hz (default)
 
-  pinMode(buttonPin, INPUT_PULLUP);
-  pinMode(ledPin_R, OUTPUT);
-  pinMode(ledPin_G, OUTPUT);
-  pinMode(pwm_pin, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(pinButton, INPUT_PULLUP);
+  pinMode(pinLed_R, OUTPUT);
+  pinMode(pinLed_G, OUTPUT);
+  pinMode(pinPwm, OUTPUT);
 
-  digitalWrite(ledPin_G, HIGH);
+  digitalWrite(pinLed_G, HIGH);
 }
+
+
+void btnPress() {
+  longPressTime = millis() + 1000;
+}
+
+void btnRelease() {
+  if (!longPress) {
+    pwmOn = !pwmOn;
+
+    digitalWrite(pinLed_R, pwmOn);
+    digitalWrite(pinLed_G, !pwmOn);
+    analogWrite(pinPwm, pwmOn ? pwmLevel : 0);
+  }
+  longPress = false;
+}
+
 
 // the loop routine runs over and over again forever:
 void loop() {
 
   // read and debounce button
-  int reading = digitalRead(buttonPin);
-  if (reading != lastButtonState) {
-    lastDebounceTime = millis();
-  }
+  int reading = digitalRead(pinButton);
+  debounce(&debounce_t, reading, btnRelease, btnPress);
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (buttonState != reading) {
-      buttonState = reading;
-      if (buttonState == LOW) {
-        // button press
-        pwm_on = !pwm_on;
+  if (debounce_t.on) {
+    digitalWrite(LED_BUILTIN, HIGH);
+  } else {
+    digitalWrite(LED_BUILTIN, LOW);
+    unsigned long clk = millis();
+    if (clk > longPressTime) {
+      longPress = true;
+      if (pwmOn) {
+        longPressTime = clk + 1000;
+        // increase pwmLevel, blink Green LED & beep PWM
+        analogWrite(pinPwm, ++pwmLevel);
+        TCCR2B = TCCR2B & B11111000 | B00000011;  // 980.39 Hz
+        digitalWrite(pinLed_R, 0);
+        digitalWrite(pinLed_G, 1);
+        delay(300);
+        TCCR2B = TCCR2B & B11111000 | B00000100;  // 490.20 Hz (default)
+        digitalWrite(pinLed_R, 1);
+        digitalWrite(pinLed_G, 0);
+      } else {
+        longPressTime = clk + 10000;
+        // reset pwmLevel, blink Red/Green LED 3 times
+        pwmLevel = pwmLevelDefault;
+        for (int i = 0; i < 3; i++) {
+          digitalWrite(pinLed_R, 1);
+          digitalWrite(pinLed_G, 0);
+          delay(500);
+          digitalWrite(pinLed_R, 0);
+          digitalWrite(pinLed_G, 1);
+          delay(500);
+        }
       }
     }
   }
-  lastButtonState = reading;
-
-  digitalWrite(ledPin_R, pwm_on);
-  digitalWrite(ledPin_G, !pwm_on);
-  analogWrite(pwm_pin, pwm_on ? pwm_level : 0);
 }
