@@ -25,44 +25,44 @@
     </marker>
   </defs>
 
-  <text class="header" x="255" y="14" text-anchor="middle">Резак для пенопласта (фанера 9мм)</text>
-  <text class="header" x="255" y="40" text-anchor="middle">максимальная ширина реза - 40 см</text>
+  <text class="header" x="255" y="14" text-anchor="middle">Styrofoam cutter (plywood 9mm)</text>
+  <text class="header" x="255" y="40" text-anchor="middle">max cut width - 40 cm</text>
 
   <g transform="translate(30 70)" fill="none" stroke="black">
-    <path stroke-width="2" d="m0,0 h470 v180 h-470 v-30 L415,130 L411,51 L0,30 z" />
+    <path stroke-width="2" d="m0,0 h475 v200 h-475 v-30 L420,150 L416,51 L0,30 z" />
 
     <!-- left -->
     <path d="M-20,0 h20 M-20,30 h20" />
     <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,0 v30' />
     <text x="-27" y="20">3</text>
 
-    <path d="M-20,150 h20" />
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,30 v120' />
-    <text x="-30" y="95">12</text>
+    <path d="M-20,170 h20" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,30 v140' />
+    <text x="-30" y="95">14</text>
 
-    <path d="M-20,180 h20" />
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,150 v30' />
-    <text x="-27" y="170">3</text>
+    <path d="M-20,200 h20" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M-12,170 v30' />
+    <text x="-27" y="190">3</text>
 
     <!-- bottom -->
-    <path d="M0,180 v30 M470,180 v30" />
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M0,205 h470' />
-    <text x="230" y="200">47</text>
+    <path d="M0,200 v30 M470,200 v30" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M0,225 h470' />
+    <text x="230" y="220">47,5</text>
 
     <!-- right -->
-    <path transform="translate(405,130) rotate(-2.8)" d="M0,0 v-10 h10" />
+    <path transform="translate(410,150) rotate(-2.8)" d="M0,0 v-10 h10" />
 
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M415,130 h55' />
-    <text x="435" y="125">5,5</text>
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M420,150 h55' />
+    <text x="440" y="145">5,5</text>
 
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M415,130 v50' />
-    <text x="400" y="160">5</text>
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M420,150 v50' />
+    <text x="405" y="180">5</text>
 
-    <path d="M470,0 h25 M470,180 h25" />
-    <path marker-start='url(#line)' marker-end='url(#line)' d='M485,0 v180' />
-    <text x="490" y="95">18</text>
+    <path d="M475,0 h25 M475,200 h25" />
+    <path marker-start='url(#line)' marker-end='url(#line)' d='M490,0 v200' />
+    <text x="495" y="105">20</text>
 
     <!-- nichrome wire -->
-    <path stroke="red" transform="translate(15,165) rotate(-2.8)" d="M0,0 v-157" />
+    <path stroke="red" transform="translate(7,7) rotate(-2.8)" d="M0,0 v178" />
   </g>
 </svg>
